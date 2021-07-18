@@ -28,6 +28,7 @@ public class ReflectionUtilsTest {
     Set<Integer> intergerSet;
     int primitiveInteger;
     Integer objectInteger;
+    Map<String, Integer> map;
     
     @Test
     public void constructorTest() {
@@ -205,6 +206,20 @@ public class ReflectionUtilsTest {
         Field field = ReflectionUtilsTest.class.getDeclaredField("integerSet");
         Type fieldType = field.getGenericType();
         assertFalse(ReflectionUtils.isList(fieldType));
+    }
+    
+    @Test
+    public void isMapTest() throws NoSuchFieldException, SecurityException {
+        Field field = ReflectionUtilsTest.class.getDeclaredField("map");
+        Type fieldType = field.getGenericType();
+        assertTrue(ReflectionUtils.isMap(fieldType));
+    }
+    
+    @Test
+    public void isMapFalseTest() throws NoSuchFieldException, SecurityException {
+        Field field = ReflectionUtilsTest.class.getDeclaredField("string");
+        Type fieldType = field.getGenericType();
+        assertFalse(ReflectionUtils.isMap(fieldType));
     }
     
     @Test

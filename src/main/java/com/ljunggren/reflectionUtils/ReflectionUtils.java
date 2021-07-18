@@ -5,6 +5,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -66,6 +67,13 @@ public class ReflectionUtils {
     public static boolean isList(Type type) {
         if (isParameterized(type)) {
             return getOwnerType(type).getTypeName().equals(List.class.getName());
+        }
+        return false;
+    }
+    
+    public static boolean isMap(Type type) {
+        if (isParameterized(type)) {
+            return getOwnerType(type).getTypeName().equals(Map.class.getName());
         }
         return false;
     }
