@@ -73,9 +73,13 @@ public class ReflectionUtils {
     
     public static boolean isMap(Type type) {
         if (isParameterized(type)) {
-            return getOwnerType(type).getTypeName().equals(Map.class.getName());
+            return isMap((Class<?>) getOwnerType(type));
         }
-        return false;
+        return isMap((Class<?>) type);
+    }
+    
+    public static boolean isMap(Class<?> clazz) {
+        return Map.class.isAssignableFrom(clazz);
     }
     
     public static boolean isArray(Type type) {

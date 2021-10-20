@@ -9,6 +9,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -21,6 +22,7 @@ public class ReflectionUtilsTest {
     Set<Integer> integerSet;
     Collection<Boolean> booleanCollection;
     Map<Integer, String> integerStringMap;
+    HashMap<Integer, String> integerStringHashMap;
     String[] stringArray;
     boolean primitiveBoolean;
     Boolean objectBoolean;
@@ -28,7 +30,6 @@ public class ReflectionUtilsTest {
     Set<Integer> intergerSet;
     int primitiveInteger;
     Integer objectInteger;
-    Map<String, Integer> map;
     
     @Test
     public void constructorTest() {
@@ -210,13 +211,27 @@ public class ReflectionUtilsTest {
     
     @Test
     public void isMapTest() throws NoSuchFieldException, SecurityException {
-        Field field = ReflectionUtilsTest.class.getDeclaredField("map");
+        Field field = ReflectionUtilsTest.class.getDeclaredField("integerStringMap");
         Type fieldType = field.getGenericType();
         assertTrue(ReflectionUtils.isMap(fieldType));
     }
     
     @Test
     public void isMapFalseTest() throws NoSuchFieldException, SecurityException {
+        Field field = ReflectionUtilsTest.class.getDeclaredField("string");
+        Type fieldType = field.getGenericType();
+        assertFalse(ReflectionUtils.isMap(fieldType));
+    }
+    
+    @Test
+    public void isHashMapTest() throws NoSuchFieldException, SecurityException {
+        Field field = ReflectionUtilsTest.class.getDeclaredField("integerStringHashMap");
+        Type fieldType = field.getGenericType();
+        assertTrue(ReflectionUtils.isMap(fieldType));
+    }
+    
+    @Test
+    public void isHshMapFalseTest() throws NoSuchFieldException, SecurityException {
         Field field = ReflectionUtilsTest.class.getDeclaredField("string");
         Type fieldType = field.getGenericType();
         assertFalse(ReflectionUtils.isMap(fieldType));
