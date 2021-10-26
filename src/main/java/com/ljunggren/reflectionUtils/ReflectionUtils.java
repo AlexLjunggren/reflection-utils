@@ -9,13 +9,16 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 
 public class ReflectionUtils {
 
     public static Type getOwnerType(Type type) {
         return type instanceof ParameterizedType ? ((ParameterizedType) type).getRawType() : null;
+    }
+    
+    public static boolean isParameterized(Type type) {
+        return type instanceof ParameterizedType;
     }
     
     public static Type[] getParameterizedTypes(Type type) {
@@ -42,38 +45,71 @@ public class ReflectionUtils {
         if (isParameterized(type)) {
             return false;
         }
-        return ClassUtils.isPrimitiveOrWrapper((Class<?>) type);
+        return isPrimitive((Class<?>) type);
+    }
+    
+    public static boolean isPrimitive(Class<?> clazz) {
+        return clazz.isPrimitive();
+    }
+    
+    public static boolean isNumber(Type type) {
+        if (isParameterized(type)) {
+            return false;
+        }
+        return isNumber((Class<?>) type);
+     }
+    
+    public static boolean isNumber(Class<?> clazz) {
+        return Number.class.isAssignableFrom(clazz);
     }
     
     public static boolean isInteger(Type type) {
-        if (isPrimitive(type)) {
-            return type.getTypeName().equals(Integer.class.getName()) ||
-                    type.getTypeName().equals(int.class.getName());
+        if (isParameterized(type)) {
+            return false;
         }
-        return false;
+        return isInteger((Class<?>) type);
     }
     
-    public static boolean isParameterized(Type type) {
-        return type instanceof ParameterizedType;
+    public static boolean isInteger(Class<?> clazz) {
+        return Integer.class.getName().equals(clazz.getName());
+    }
+    
+    public static boolean isDouble(Type type) {
+        if (isParameterized(type)) {
+            return false;
+        }
+        return isDouble((Class<?>) type);
+    }
+    
+    public static boolean isDouble(Class<?> clazz) {
+        return Double.class.getName().equals(clazz.getName());
     }
     
     public static boolean isString(Type type) {
         if (isParameterized(type)) {
             return false;
         }
-        return type.getTypeName().equals(String.class.getName());
+        return isString((Class<?>) type);
+    }
+    
+    public static boolean isString(Class<?> clazz) {
+        return String.class.getName().equals(clazz.getName());
     }
     
     public static boolean isList(Type type) {
         if (isParameterized(type)) {
-            return getOwnerType(type).getTypeName().equals(List.class.getName());
+            return isList(getOwnerType(type));
         }
-        return false;
+        return isList((Class<?>) type);
+    }
+    
+    public static boolean isList(Class<?> clazz) {
+        return List.class.isAssignableFrom(clazz);
     }
     
     public static boolean isMap(Type type) {
         if (isParameterized(type)) {
-            return isMap((Class<?>) getOwnerType(type));
+            return isMap(getOwnerType(type));
         }
         return isMap((Class<?>) type);
     }
@@ -86,25 +122,51 @@ public class ReflectionUtils {
         if (isParameterized(type)) {
             return false;
         }
-        return ((Class<?>) type).isArray();
+        return isArray((Class<?>) type);
+    }
+    
+    public static boolean isArray(Class<?> clazz) {
+        return clazz.isArray();
     }
     
     public static boolean isSet(Type type) {
         if (isParameterized(type)) {
-            return getOwnerType(type).getTypeName().equals(Set.class.getName());
+            return isSet(getOwnerType(type));
         }
-        return false;
+        return isSet((Class<?>) type);
     }
     
-    public static boolean hasNoArgsContrustor(Class<?> clazz) {
-        return Stream.of(clazz.getConstructors())
-                .allMatch(constructor -> constructor.getParameterCount() == 0);
+    public static boolean isSet(Class<?> clazz) {
+        return Set.class.isAssignableFrom(clazz);
+    }
+    
+    public static boolean isCollection(Type type) {
+        if (isParameterized(type)) {
+            return isCollection(getOwnerType(type));
+        }
+        return isCollection((Class<?>) type);
     }
     
     public static boolean isCollection(Class<?> clazz) {
         return Collection.class.isAssignableFrom(clazz);
     }
+    
+    public static boolean isIterable(Type type) {
+        if (isParameterized(type)) {
+            return isIterable(getOwnerType(type));
+        }
+        return isIterable((Class<?>) type);
+    }
+    
+    public static boolean isIterable(Class<?> clazz) {
+        return Iterable.class.isAssignableFrom(clazz);
+    }
 
+    public static boolean hasNoArgsContrustor(Class<?> clazz) {
+        return Stream.of(clazz.getConstructors())
+                .allMatch(constructor -> constructor.getParameterCount() == 0);
+    }
+    
     public static Object getFieldValue(Field field, Object target) throws IllegalAccessException {
         return FieldUtils.readField(field, target, true);
     }
