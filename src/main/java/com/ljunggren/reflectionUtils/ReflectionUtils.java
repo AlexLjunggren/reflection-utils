@@ -3,6 +3,7 @@ package com.ljunggren.reflectionUtils;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -83,6 +84,17 @@ public class ReflectionUtils {
     
     public static boolean isDouble(Class<?> clazz) {
         return Double.class.getName().equals(clazz.getName());
+    }
+    
+    public static boolean isBigDecimal(Type type) {
+        if (isParameterized(type)) {
+            return false;
+        }
+        return isBigDecimal((Class<?>) type);
+    }
+    
+    public static boolean isBigDecimal(Class<?> clazz) {
+        return BigDecimal.class.getName().equals(clazz.getName());
     }
     
     public static boolean isString(Type type) {

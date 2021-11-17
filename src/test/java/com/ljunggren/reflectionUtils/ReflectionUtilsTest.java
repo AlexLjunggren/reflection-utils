@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +34,7 @@ public class ReflectionUtilsTest {
     int primitiveInteger;
     Integer objectInteger;
     Iterable<String> stringIterable;
+    BigDecimal bigDecimal;
     
     @Test
     public void constructorTest() {
@@ -224,6 +226,27 @@ public class ReflectionUtilsTest {
         Field field = ReflectionUtilsTest.class.getDeclaredField("string");
         Type fieldType = field.getGenericType();
         assertFalse(ReflectionUtils.isDouble(fieldType));
+    }
+    
+    @Test
+    public void isBigDecimalTest() throws NoSuchFieldException, SecurityException {
+        Field field = ReflectionUtilsTest.class.getDeclaredField("bigDecimal");
+        Type fieldType = field.getGenericType();
+        assertTrue(ReflectionUtils.isBigDecimal(fieldType));
+    }
+    
+    @Test
+    public void isBigDecimalFalseTest() throws NoSuchFieldException, SecurityException {
+        Field field = ReflectionUtilsTest.class.getDeclaredField("string");
+        Type fieldType = field.getGenericType();
+        assertFalse(ReflectionUtils.isBigDecimal(fieldType));
+    }
+    
+    @Test
+    public void isBigDecimalParameterizedTest() throws NoSuchFieldException, SecurityException {
+        Field field = ReflectionUtilsTest.class.getDeclaredField("stringList");
+        Type fieldType = field.getGenericType();
+        assertFalse(ReflectionUtils.isBigDecimal(fieldType));
     }
     
     @Test
