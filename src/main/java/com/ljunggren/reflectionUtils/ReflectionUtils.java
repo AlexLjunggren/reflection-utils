@@ -86,6 +86,17 @@ public class ReflectionUtils {
         return Double.class.getName().equals(clazz.getName());
     }
     
+    public static boolean isFloat(Type type) {
+        if (isParameterized(type)) {
+            return false;
+        }
+        return isFloat((Class<?>) type);
+    }
+    
+    public static boolean isFloat(Class<?> clazz) {
+        return Float.class.getName().equals(clazz.getName());
+    }
+    
     public static boolean isBigDecimal(Type type) {
         if (isParameterized(type)) {
             return false;

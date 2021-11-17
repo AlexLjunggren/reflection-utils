@@ -21,6 +21,7 @@ public class ReflectionUtilsTest {
     Number number;
     Double objectDouble;
     double primitiveDouble;
+    Float floatObject;
     List<String> stringList;
     Set<Integer> integerSet;
     Collection<Boolean> booleanCollection;
@@ -226,6 +227,27 @@ public class ReflectionUtilsTest {
         Field field = ReflectionUtilsTest.class.getDeclaredField("string");
         Type fieldType = field.getGenericType();
         assertFalse(ReflectionUtils.isDouble(fieldType));
+    }
+    
+    @Test
+    public void isFloatTest() throws NoSuchFieldException, SecurityException {
+        Field field = ReflectionUtilsTest.class.getDeclaredField("floatObject");
+        Type fieldType = field.getGenericType();
+        assertTrue(ReflectionUtils.isFloat(fieldType));
+    }
+    
+    @Test
+    public void isFloatFalseTest() throws NoSuchFieldException, SecurityException {
+        Field field = ReflectionUtilsTest.class.getDeclaredField("string");
+        Type fieldType = field.getGenericType();
+        assertFalse(ReflectionUtils.isFloat(fieldType));
+    }
+    
+    @Test
+    public void isFloatParameterizedTest() throws NoSuchFieldException, SecurityException {
+        Field field = ReflectionUtilsTest.class.getDeclaredField("stringList");
+        Type fieldType = field.getGenericType();
+        assertFalse(ReflectionUtils.isFloat(fieldType));
     }
     
     @Test
