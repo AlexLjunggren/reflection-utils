@@ -86,6 +86,28 @@ public class ReflectionUtils {
         return Double.class.getName().equals(clazz.getName());
     }
     
+    public static boolean isShort(Type type) {
+        if (isParameterized(type)) {
+            return false;
+        }
+        return isShort((Class<?>) type);
+    }
+    
+    public static boolean isShort(Class<?> clazz) {
+        return Short.class.getName().equals(clazz.getName());
+    }
+    
+    public static boolean isLong(Type type) {
+        if (isParameterized(type)) {
+            return false;
+        }
+        return isLong((Class<?>) type);
+    }
+    
+    public static boolean isLong(Class<?> clazz) {
+        return Long.class.getName().equals(clazz.getName());
+    }
+    
     public static boolean isFloat(Type type) {
         if (isParameterized(type)) {
             return false;
