@@ -43,10 +43,7 @@ public class ReflectionUtils {
     }
     
     public static boolean isPrimitive(Type type) {
-        if (isParameterized(type)) {
-            return false;
-        }
-        return isPrimitive((Class<?>) type);
+        return isParameterized(type) ? false : isPrimitive((Class<?>) type);
     }
     
     public static boolean isPrimitive(Class<?> clazz) {
@@ -54,10 +51,7 @@ public class ReflectionUtils {
     }
     
     public static boolean isNumber(Type type) {
-        if (isParameterized(type)) {
-            return false;
-        }
-        return isNumber((Class<?>) type);
+        return isParameterized(type) ? false : isNumber((Class<?>) type);
      }
     
     public static boolean isNumber(Class<?> clazz) {
@@ -65,98 +59,71 @@ public class ReflectionUtils {
     }
     
     public static boolean isInteger(Type type) {
-        if (isParameterized(type)) {
-            return false;
-        }
-        return isInteger((Class<?>) type);
+        return isParameterized(type) ? false : isInteger((Class<?>) type);
     }
     
     public static boolean isInteger(Class<?> clazz) {
-        return Integer.class.getName().equals(clazz.getName());
+        return isEqual(clazz, Integer.class);
     }
     
     public static boolean isDouble(Type type) {
-        if (isParameterized(type)) {
-            return false;
-        }
-        return isDouble((Class<?>) type);
+        return isParameterized(type) ? false : isDouble((Class<?>) type);
     }
     
     public static boolean isDouble(Class<?> clazz) {
-        return Double.class.getName().equals(clazz.getName());
+        return isEqual(clazz, Double.class);
     }
     
     public static boolean isShort(Type type) {
-        if (isParameterized(type)) {
-            return false;
-        }
-        return isShort((Class<?>) type);
+        return isParameterized(type) ? false : isShort((Class<?>) type);
     }
     
     public static boolean isShort(Class<?> clazz) {
-        return Short.class.getName().equals(clazz.getName());
+        return isEqual(clazz, Short.class);
     }
     
     public static boolean isLong(Type type) {
-        if (isParameterized(type)) {
-            return false;
-        }
-        return isLong((Class<?>) type);
+        return isParameterized(type) ? false : isLong((Class<?>) type);
     }
     
     public static boolean isLong(Class<?> clazz) {
-        return Long.class.getName().equals(clazz.getName());
+        return isEqual(clazz, Long.class);
     }
     
     public static boolean isFloat(Type type) {
-        if (isParameterized(type)) {
-            return false;
-        }
-        return isFloat((Class<?>) type);
+        return isParameterized(type) ? false : isFloat((Class<?>) type);
     }
     
     public static boolean isFloat(Class<?> clazz) {
-        return Float.class.getName().equals(clazz.getName());
+        return isEqual(clazz, Float.class);
     }
     
     public static boolean isBigDecimal(Type type) {
-        if (isParameterized(type)) {
-            return false;
-        }
-        return isBigDecimal((Class<?>) type);
+        return isParameterized(type) ? false : isBigDecimal((Class<?>) type);
     }
     
     public static boolean isBigDecimal(Class<?> clazz) {
-        return BigDecimal.class.getName().equals(clazz.getName());
+        return isEqual(clazz, BigDecimal.class);
     }
     
     public static boolean isByte(Type type) {
-        if (isParameterized(type)) {
-            return false;
-        }
-        return isByte((Class<?>) type);
+        return isParameterized(type) ? false : isByte((Class<?>) type);
     }
     
     public static boolean isByte(Class<?> clazz) {
-        return Byte.class.getName().equals(clazz.getName());
+        return isEqual(clazz, Byte.class);
     }
     
     public static boolean isString(Type type) {
-        if (isParameterized(type)) {
-            return false;
-        }
-        return isString((Class<?>) type);
+        return isParameterized(type) ? false : isString((Class<?>) type);
     }
     
     public static boolean isString(Class<?> clazz) {
-        return String.class.getName().equals(clazz.getName());
+        return isEqual(clazz, String.class);
     }
     
     public static boolean isList(Type type) {
-        if (isParameterized(type)) {
-            return isList(getOwnerType(type));
-        }
-        return isList((Class<?>) type);
+        return isParameterized(type) ? isList(getOwnerType(type)) : isList((Class<?>) type);
     }
     
     public static boolean isList(Class<?> clazz) {
@@ -164,10 +131,7 @@ public class ReflectionUtils {
     }
     
     public static boolean isMap(Type type) {
-        if (isParameterized(type)) {
-            return isMap(getOwnerType(type));
-        }
-        return isMap((Class<?>) type);
+        return isParameterized(type) ? isMap(getOwnerType(type)) : isMap((Class<?>) type);
     }
     
     public static boolean isMap(Class<?> clazz) {
@@ -175,10 +139,7 @@ public class ReflectionUtils {
     }
     
     public static boolean isArray(Type type) {
-        if (isParameterized(type)) {
-            return false;
-        }
-        return isArray((Class<?>) type);
+        return isParameterized(type) ? false : isArray((Class<?>) type);
     }
     
     public static boolean isArray(Class<?> clazz) {
@@ -186,10 +147,7 @@ public class ReflectionUtils {
     }
     
     public static boolean isSet(Type type) {
-        if (isParameterized(type)) {
-            return isSet(getOwnerType(type));
-        }
-        return isSet((Class<?>) type);
+        return isParameterized(type) ? isSet(getOwnerType(type)) : isSet((Class<?>) type);
     }
     
     public static boolean isSet(Class<?> clazz) {
@@ -197,10 +155,7 @@ public class ReflectionUtils {
     }
     
     public static boolean isCollection(Type type) {
-        if (isParameterized(type)) {
-            return isCollection(getOwnerType(type));
-        }
-        return isCollection((Class<?>) type);
+        return isParameterized(type) ? isCollection(getOwnerType(type)) : isCollection((Class<?>) type);
     }
     
     public static boolean isCollection(Class<?> clazz) {
@@ -208,10 +163,7 @@ public class ReflectionUtils {
     }
     
     public static boolean isIterable(Type type) {
-        if (isParameterized(type)) {
-            return isIterable(getOwnerType(type));
-        }
-        return isIterable((Class<?>) type);
+        return isParameterized(type) ? isIterable(getOwnerType(type)) : isIterable((Class<?>) type);
     }
     
     public static boolean isIterable(Class<?> clazz) {
@@ -225,6 +177,10 @@ public class ReflectionUtils {
     
     public static Object getFieldValue(Field field, Object target) throws IllegalAccessException {
         return FieldUtils.readField(field, target, true);
+    }
+    
+    private static boolean isEqual(Class<?> class1, Class<?> class2) {
+        return class1.getName().equals(class2.getName());
     }
     
 }
