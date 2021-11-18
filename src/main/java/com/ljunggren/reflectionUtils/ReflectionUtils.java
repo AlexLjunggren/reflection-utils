@@ -130,6 +130,17 @@ public class ReflectionUtils {
         return BigDecimal.class.getName().equals(clazz.getName());
     }
     
+    public static boolean isByte(Type type) {
+        if (isParameterized(type)) {
+            return false;
+        }
+        return isByte((Class<?>) type);
+    }
+    
+    public static boolean isByte(Class<?> clazz) {
+        return Byte.class.getName().equals(clazz.getName());
+    }
+    
     public static boolean isString(Type type) {
         if (isParameterized(type)) {
             return false;

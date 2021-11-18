@@ -26,18 +26,19 @@ public class ReflectionUtilsTest {
     Short shortObject;
     Long longObject;
     Float floatObject;
+    BigDecimal bigDecimal;
     List<String> stringList;
     Set<Integer> integerSet;
     Collection<Boolean> booleanCollection;
     Map<Integer, String> integerStringMap;
     HashMap<Integer, String> integerStringHashMap;
+    Set<Integer> intergerSet;
+    Iterable<String> stringIterable;
+    Byte byteObject;
+    String string;
     String[] stringArray;
     boolean booleanPrimitive;
     Boolean booleanObject;
-    String string;
-    Set<Integer> intergerSet;
-    Iterable<String> stringIterable;
-    BigDecimal bigDecimal;
     
     @Test
     public void constructorTest() {
@@ -397,6 +398,27 @@ public class ReflectionUtilsTest {
         Field field = ReflectionUtilsTest.class.getDeclaredField("stringList");
         Type fieldType = field.getGenericType();
         assertFalse(ReflectionUtils.isArray(fieldType));
+    }
+    
+    @Test
+    public void isByteTest() throws NoSuchFieldException, SecurityException {
+        Field field = ReflectionUtilsTest.class.getDeclaredField("byteObject");
+        Type fieldType = field.getGenericType();
+        assertTrue(ReflectionUtils.isByte(fieldType));
+    }
+    
+    @Test
+    public void isByteFalseTest() throws NoSuchFieldException, SecurityException {
+        Field field = ReflectionUtilsTest.class.getDeclaredField("string");
+        Type fieldType = field.getGenericType();
+        assertFalse(ReflectionUtils.isByte(fieldType));
+    }
+    
+    @Test
+    public void isByteParameterizedTest() throws NoSuchFieldException, SecurityException {
+        Field field = ReflectionUtilsTest.class.getDeclaredField("stringList");
+        Type fieldType = field.getGenericType();
+        assertFalse(ReflectionUtils.isByte(fieldType));
     }
     
     @Test
