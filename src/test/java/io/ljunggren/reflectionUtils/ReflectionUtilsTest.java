@@ -1,4 +1,4 @@
-package com.ljunggren.reflectionUtils;
+package io.ljunggren.reflectionUtils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -419,6 +419,27 @@ public class ReflectionUtilsTest {
         Field field = ReflectionUtilsTest.class.getDeclaredField("stringList");
         Type fieldType = field.getGenericType();
         assertFalse(ReflectionUtils.isByte(fieldType));
+    }
+    
+    @Test
+    public void isBooleanTest() throws NoSuchFieldException, SecurityException {
+        Field field = ReflectionUtilsTest.class.getDeclaredField("booleanObject");
+        Type fieldType = field.getGenericType();
+        assertTrue(ReflectionUtils.isBoolean(fieldType));
+    }
+    
+    @Test
+    public void isBooleanFalseTest() throws NoSuchFieldException, SecurityException {
+        Field field = ReflectionUtilsTest.class.getDeclaredField("string");
+        Type fieldType = field.getGenericType();
+        assertFalse(ReflectionUtils.isBoolean(fieldType));
+    }
+    
+    @Test
+    public void isBooleanParameterizedTest() throws NoSuchFieldException, SecurityException {
+        Field field = ReflectionUtilsTest.class.getDeclaredField("stringList");
+        Type fieldType = field.getGenericType();
+        assertFalse(ReflectionUtils.isBoolean(fieldType));
     }
     
     @Test
