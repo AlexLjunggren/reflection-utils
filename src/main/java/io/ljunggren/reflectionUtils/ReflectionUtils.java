@@ -1,4 +1,4 @@
-package com.ljunggren.reflectionUtils;
+package io.ljunggren.reflectionUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -112,6 +112,14 @@ public class ReflectionUtils {
     
     public static boolean isByte(Class<?> clazz) {
         return isEqual(clazz, Byte.class);
+    }
+    
+    public static boolean isBoolean(Type type) {
+        return isParameterized(type) ? false : isBoolean((Class<?>) type);
+    }
+    
+    public static boolean isBoolean(Class<?> clazz) {
+        return isEqual(clazz, Boolean.class);
     }
     
     public static boolean isString(Type type) {
