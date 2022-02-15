@@ -19,6 +19,9 @@ public class ReflectionUtils {
     }
     
     public static boolean isParameterized(Type type) {
+        if (type == null) {
+            return false;
+        }
         return type instanceof ParameterizedType;
     }
     
@@ -50,12 +53,20 @@ public class ReflectionUtils {
         return clazz.isPrimitive();
     }
     
+    public static <T> boolean isNumber(T t) {
+        return t instanceof Number;
+    }
+    
     public static boolean isNumber(Type type) {
         return isParameterized(type) ? false : isNumber((Class<?>) type);
      }
     
     public static boolean isNumber(Class<?> clazz) {
-        return Number.class.isAssignableFrom(clazz);
+        return clazz == null ? false : Number.class.isAssignableFrom(clazz);
+    }
+    
+    public static <T> boolean isInteger(T t) {
+        return t instanceof Integer;
     }
     
     public static boolean isInteger(Type type) {
@@ -64,6 +75,10 @@ public class ReflectionUtils {
     
     public static boolean isInteger(Class<?> clazz) {
         return isEqual(clazz, Integer.class);
+    }
+    
+    public static <T> boolean isDouble(T t) {
+        return t instanceof Double;
     }
     
     public static boolean isDouble(Type type) {
@@ -120,6 +135,10 @@ public class ReflectionUtils {
     
     public static boolean isBoolean(Class<?> clazz) {
         return isEqual(clazz, Boolean.class);
+    }
+    
+    public static <T> boolean isString(T t) {
+        return t instanceof String;
     }
     
     public static boolean isString(Type type) {
@@ -188,6 +207,12 @@ public class ReflectionUtils {
     }
     
     private static boolean isEqual(Class<?> class1, Class<?> class2) {
+        if (class1 == null && class2 == null) {
+            return true;
+        }
+        if (class1 == null || class2 == null) {
+            return false;
+        }
         return class1.getName().equals(class2.getName());
     }
     

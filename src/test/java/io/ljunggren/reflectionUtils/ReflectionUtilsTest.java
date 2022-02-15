@@ -18,11 +18,11 @@ import org.junit.Test;
 
 public class ReflectionUtilsTest {
     
-    Number number;
-    int integerPrimitive;
-    Integer integerObject;
-    Double doubleObject;
-    double doublePrimitive;
+    Number number = 0;
+    int integerPrimitive = 0;
+    Integer integerObject = 0;
+    Double doubleObject = 0.0;
+    double doublePrimitive = 0.0;
     Short shortObject;
     Long longObject;
     Float floatObject;
@@ -35,7 +35,7 @@ public class ReflectionUtilsTest {
     Set<Integer> intergerSet;
     Iterable<String> stringIterable;
     Byte byteObject;
-    String string;
+    String string = "string";
     String[] stringArray;
     boolean booleanPrimitive;
     Boolean booleanObject;
@@ -149,6 +149,16 @@ public class ReflectionUtilsTest {
     }
     
     @Test
+    public void isNumberGenericTest() {
+        assertTrue(ReflectionUtils.isNumber(number));
+    }
+    
+    @Test
+    public void isNumberGenericFalseTest() {
+        assertFalse(ReflectionUtils.isNumber(string));
+    }
+    
+    @Test
     public void isNumberTest() throws NoSuchFieldException, SecurityException {
         Field field = ReflectionUtilsTest.class.getDeclaredField("number");
         Type fieldType = field.getGenericType();
@@ -174,6 +184,26 @@ public class ReflectionUtilsTest {
         Field field = ReflectionUtilsTest.class.getDeclaredField("integerSet");
         Type fieldType = field.getGenericType();
         assertFalse(ReflectionUtils.isNumber(fieldType));
+    }
+    
+    @Test
+    public void isNumberNullTest() {
+        assertFalse(ReflectionUtils.isNumber(null));
+    }
+    
+    @Test
+    public void isIntegerGenericTest() {
+        assertTrue(ReflectionUtils.isInteger(integerObject));
+    }
+    
+    @Test
+    public void isIntegerGenericPrimitiveTest() {
+        assertTrue(ReflectionUtils.isInteger(integerPrimitive));
+    }
+    
+    @Test
+    public void isIntegerGenericFalseTest() {
+        assertFalse(ReflectionUtils.isInteger(string));
     }
     
     @Test
@@ -205,6 +235,26 @@ public class ReflectionUtilsTest {
     }
     
     @Test
+    public void isIntegerNullTest() {
+        assertFalse(ReflectionUtils.isInteger(null));
+    }
+    
+    @Test
+    public void isDoubleGenericTest() {
+        assertTrue(ReflectionUtils.isDouble(doubleObject));
+    }
+    
+    @Test
+    public void isDoubleGenericPrimitiveTest() {
+        assertTrue(ReflectionUtils.isDouble(doublePrimitive));
+    }
+    
+    @Test
+    public void isDoubleGenericFalseTest() {
+        assertFalse(ReflectionUtils.isDouble(string));
+    }
+    
+    @Test
     public void isDoublePrimitiveTest() throws NoSuchFieldException, SecurityException {
         Field field = ReflectionUtilsTest.class.getDeclaredField("doublePrimitive");
         Type fieldType = field.getGenericType();
@@ -230,6 +280,11 @@ public class ReflectionUtilsTest {
         Field field = ReflectionUtilsTest.class.getDeclaredField("string");
         Type fieldType = field.getGenericType();
         assertFalse(ReflectionUtils.isDouble(fieldType));
+    }
+    
+    @Test
+    public void isDoubleNullTest() {
+        assertFalse(ReflectionUtils.isDouble(null));
     }
     
     @Test
@@ -443,6 +498,16 @@ public class ReflectionUtilsTest {
     }
     
     @Test
+    public void isStringGenericTest() {
+        assertTrue(ReflectionUtils.isString(string));
+    }
+    
+    @Test
+    public void isStringGenericFalseTest() {
+        assertFalse(ReflectionUtils.isString(integerObject));
+    }
+    
+    @Test
     public void isStringTest() throws NoSuchFieldException, SecurityException {
         Field field = ReflectionUtilsTest.class.getDeclaredField("string");
         Type fieldType = field.getGenericType();
@@ -454,6 +519,11 @@ public class ReflectionUtilsTest {
         Field field = ReflectionUtilsTest.class.getDeclaredField("booleanObject");
         Type fieldType = field.getGenericType();
         assertFalse(ReflectionUtils.isString(fieldType));
+    }
+    
+    @Test
+    public void isStringNullTest() {
+        assertFalse(ReflectionUtils.isString(null));
     }
     
     @Test
