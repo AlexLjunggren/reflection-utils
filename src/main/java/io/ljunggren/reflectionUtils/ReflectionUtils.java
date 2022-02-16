@@ -19,7 +19,7 @@ public class ReflectionUtils {
     }
     
     public static boolean isParameterized(Type type) {
-        return type instanceof ParameterizedType;
+        return type == null ? false : type instanceof ParameterizedType;
     }
     
     public static Type[] getParameterizedTypes(Type type) {
@@ -50,12 +50,20 @@ public class ReflectionUtils {
         return clazz.isPrimitive();
     }
     
+    public static <T> boolean isNumber(T t) {
+        return t instanceof Number;
+    }
+    
     public static boolean isNumber(Type type) {
         return isParameterized(type) ? false : isNumber((Class<?>) type);
      }
     
     public static boolean isNumber(Class<?> clazz) {
-        return Number.class.isAssignableFrom(clazz);
+        return clazz == null ? false : Number.class.isAssignableFrom(clazz);
+    }
+    
+    public static <T> boolean isInteger(T t) {
+        return t instanceof Integer;
     }
     
     public static boolean isInteger(Type type) {
@@ -66,12 +74,20 @@ public class ReflectionUtils {
         return isEqual(clazz, Integer.class);
     }
     
+    public static <T> boolean isDouble(T t) {
+        return t instanceof Double;
+    }
+    
     public static boolean isDouble(Type type) {
         return isParameterized(type) ? false : isDouble((Class<?>) type);
     }
     
     public static boolean isDouble(Class<?> clazz) {
         return isEqual(clazz, Double.class);
+    }
+    
+    public static <T> boolean isShort(T t) {
+        return t instanceof Short;
     }
     
     public static boolean isShort(Type type) {
@@ -82,12 +98,20 @@ public class ReflectionUtils {
         return isEqual(clazz, Short.class);
     }
     
+    public static <T> boolean isLong(T t) {
+        return t instanceof Long;
+    }
+    
     public static boolean isLong(Type type) {
         return isParameterized(type) ? false : isLong((Class<?>) type);
     }
     
     public static boolean isLong(Class<?> clazz) {
         return isEqual(clazz, Long.class);
+    }
+    
+    public static <T> boolean isFloat(T t) {
+        return t instanceof Float;
     }
     
     public static boolean isFloat(Type type) {
@@ -98,12 +122,20 @@ public class ReflectionUtils {
         return isEqual(clazz, Float.class);
     }
     
+    public static <T> boolean isBigDecimal(T t) {
+        return t instanceof BigDecimal;
+    }
+    
     public static boolean isBigDecimal(Type type) {
         return isParameterized(type) ? false : isBigDecimal((Class<?>) type);
     }
     
     public static boolean isBigDecimal(Class<?> clazz) {
         return isEqual(clazz, BigDecimal.class);
+    }
+    
+    public static <T> boolean isByte(T t) {
+        return t instanceof Byte;
     }
     
     public static boolean isByte(Type type) {
@@ -114,12 +146,20 @@ public class ReflectionUtils {
         return isEqual(clazz, Byte.class);
     }
     
+    public static <T> boolean isBoolean(T t) {
+        return t instanceof Boolean;
+    }
+    
     public static boolean isBoolean(Type type) {
         return isParameterized(type) ? false : isBoolean((Class<?>) type);
     }
     
     public static boolean isBoolean(Class<?> clazz) {
         return isEqual(clazz, Boolean.class);
+    }
+    
+    public static <T> boolean isString(T t) {
+        return t instanceof String;
     }
     
     public static boolean isString(Type type) {
@@ -130,12 +170,20 @@ public class ReflectionUtils {
         return isEqual(clazz, String.class);
     }
     
+    public static <T> boolean isList(T t) {
+        return t instanceof List;
+    }
+    
     public static boolean isList(Type type) {
         return isParameterized(type) ? isList(getOwnerType(type)) : isList((Class<?>) type);
     }
     
     public static boolean isList(Class<?> clazz) {
-        return List.class.isAssignableFrom(clazz);
+        return clazz == null ? false : List.class.isAssignableFrom(clazz);
+    }
+    
+    public static <T> boolean isMap(T t) {
+        return t instanceof Map;
     }
     
     public static boolean isMap(Type type) {
@@ -143,7 +191,11 @@ public class ReflectionUtils {
     }
     
     public static boolean isMap(Class<?> clazz) {
-        return Map.class.isAssignableFrom(clazz);
+        return clazz == null ? false : Map.class.isAssignableFrom(clazz);
+    }
+    
+    public static <T> boolean isArray(T t) {
+        return isArray(t.getClass());
     }
     
     public static boolean isArray(Type type) {
@@ -151,7 +203,11 @@ public class ReflectionUtils {
     }
     
     public static boolean isArray(Class<?> clazz) {
-        return clazz.isArray();
+        return clazz == null ? false : clazz.isArray();
+    }
+    
+    public static <T> boolean isSet(T t) {
+        return t instanceof Set;
     }
     
     public static boolean isSet(Type type) {
@@ -159,7 +215,11 @@ public class ReflectionUtils {
     }
     
     public static boolean isSet(Class<?> clazz) {
-        return Set.class.isAssignableFrom(clazz);
+        return clazz == null ? false : Set.class.isAssignableFrom(clazz);
+    }
+    
+    public static <T> boolean isCollection(T t) {
+        return t instanceof Collection;
     }
     
     public static boolean isCollection(Type type) {
@@ -167,7 +227,11 @@ public class ReflectionUtils {
     }
     
     public static boolean isCollection(Class<?> clazz) {
-        return Collection.class.isAssignableFrom(clazz);
+        return clazz == null ? false : Collection.class.isAssignableFrom(clazz);
+    }
+    
+    public static <T> boolean isIterable(T t) {
+        return t instanceof Iterable;
     }
     
     public static boolean isIterable(Type type) {
@@ -175,7 +239,11 @@ public class ReflectionUtils {
     }
     
     public static boolean isIterable(Class<?> clazz) {
-        return Iterable.class.isAssignableFrom(clazz);
+        return clazz == null ? false : Iterable.class.isAssignableFrom(clazz);
+    }
+    
+    public static boolean hasNoArgsContrustor(Type type) {
+        return hasNoArgsContrustor((Class<?>) type);
     }
 
     public static boolean hasNoArgsContrustor(Class<?> clazz) {
@@ -188,6 +256,9 @@ public class ReflectionUtils {
     }
     
     private static boolean isEqual(Class<?> class1, Class<?> class2) {
+        if (class1 == null || class2 == null) {
+            return false;
+        }
         return class1.getName().equals(class2.getName());
     }
     
