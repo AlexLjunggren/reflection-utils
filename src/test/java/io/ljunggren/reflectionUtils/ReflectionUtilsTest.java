@@ -167,6 +167,11 @@ public class ReflectionUtilsTest {
     }
     
     @Test
+    public void getArrayComponentTypeNullTest() {
+        assertNull(ReflectionUtils.getArrayComponentType(null));
+    }
+    
+    @Test
     public void isPrimitiveTest() throws NoSuchFieldException, SecurityException {
         Field field = ReflectionUtilsTest.class.getDeclaredField("booleanPrimitive");
         Type fieldType = field.getGenericType();

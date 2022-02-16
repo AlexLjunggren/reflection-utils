@@ -19,10 +19,7 @@ public class ReflectionUtils {
     }
     
     public static boolean isParameterized(Type type) {
-        if (type == null) {
-            return false;
-        }
-        return type instanceof ParameterizedType;
+        return type == null ? false : type instanceof ParameterizedType;
     }
     
     public static Type[] getParameterizedTypes(Type type) {
