@@ -89,12 +89,20 @@ public class ReflectionUtils {
         return isEqual(clazz, Double.class);
     }
     
+    public static <T> boolean isShort(T t) {
+        return t instanceof Short;
+    }
+    
     public static boolean isShort(Type type) {
         return isParameterized(type) ? false : isShort((Class<?>) type);
     }
     
     public static boolean isShort(Class<?> clazz) {
         return isEqual(clazz, Short.class);
+    }
+    
+    public static <T> boolean isLong(T t) {
+        return t instanceof Long;
     }
     
     public static boolean isLong(Type type) {
@@ -105,12 +113,20 @@ public class ReflectionUtils {
         return isEqual(clazz, Long.class);
     }
     
+    public static <T> boolean isFloat(T t) {
+        return t instanceof Float;
+    }
+    
     public static boolean isFloat(Type type) {
         return isParameterized(type) ? false : isFloat((Class<?>) type);
     }
     
     public static boolean isFloat(Class<?> clazz) {
         return isEqual(clazz, Float.class);
+    }
+    
+    public static <T> boolean isBigDecimal(T t) {
+        return t instanceof BigDecimal;
     }
     
     public static boolean isBigDecimal(Type type) {
@@ -121,12 +137,20 @@ public class ReflectionUtils {
         return isEqual(clazz, BigDecimal.class);
     }
     
+    public static <T> boolean isByte(T t) {
+        return t instanceof Byte;
+    }
+    
     public static boolean isByte(Type type) {
         return isParameterized(type) ? false : isByte((Class<?>) type);
     }
     
     public static boolean isByte(Class<?> clazz) {
         return isEqual(clazz, Byte.class);
+    }
+    
+    public static <T> boolean isBoolean(T t) {
+        return t instanceof Boolean;
     }
     
     public static boolean isBoolean(Type type) {
@@ -149,12 +173,20 @@ public class ReflectionUtils {
         return isEqual(clazz, String.class);
     }
     
+    public static <T> boolean isList(T t) {
+        return t instanceof List;
+    }
+    
     public static boolean isList(Type type) {
         return isParameterized(type) ? isList(getOwnerType(type)) : isList((Class<?>) type);
     }
     
     public static boolean isList(Class<?> clazz) {
-        return List.class.isAssignableFrom(clazz);
+        return clazz == null ? false : List.class.isAssignableFrom(clazz);
+    }
+    
+    public static <T> boolean isMap(T t) {
+        return t instanceof Map;
     }
     
     public static boolean isMap(Type type) {
@@ -162,7 +194,7 @@ public class ReflectionUtils {
     }
     
     public static boolean isMap(Class<?> clazz) {
-        return Map.class.isAssignableFrom(clazz);
+        return clazz == null ? false : Map.class.isAssignableFrom(clazz);
     }
     
     public static boolean isArray(Type type) {
