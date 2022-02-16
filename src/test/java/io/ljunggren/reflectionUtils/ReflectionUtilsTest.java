@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -38,12 +39,12 @@ public class ReflectionUtilsTest {
     String string = "string";
     List<String> stringList = new ArrayList<>();
     Map<Integer, String> integerStringMap = new HashMap<>();
-    String[] stringArray;
-    Set<Integer> integerSet;
+    String[] stringArray = new String[] {};
+    Set<Integer> integerSet = new HashSet<>();
     Collection<Boolean> booleanCollection;
     HashMap<Integer, String> integerStringHashMap;
     Set<Integer> intergerSet;
-    Iterable<String> stringIterable;
+    Iterable<String> stringIterable = new ArrayList<>();
     
     @Test
     public void constructorTest() {
@@ -106,6 +107,11 @@ public class ReflectionUtilsTest {
         Field field = ReflectionUtilsTest.class.getDeclaredField("booleanPrimitive");
         Type fieldType = field.getGenericType();
         assertFalse(ReflectionUtils.isParameterized(fieldType));
+    }
+    
+    @Test
+    public void isParameterizedNullTest() {
+        assertFalse(ReflectionUtils.isParameterized(null));
     }
     
     @Test
@@ -658,7 +664,7 @@ public class ReflectionUtilsTest {
     }
     
     @Test
-    public void isHshMapFalseTest() throws NoSuchFieldException, SecurityException {
+    public void isHashMapFalseTest() throws NoSuchFieldException, SecurityException {
         Field field = ReflectionUtilsTest.class.getDeclaredField("string");
         Type fieldType = field.getGenericType();
         assertFalse(ReflectionUtils.isMap(fieldType));
@@ -667,6 +673,16 @@ public class ReflectionUtilsTest {
     @Test
     public void isMapNullTest() {
         assertFalse(ReflectionUtils.isMap(null));
+    }
+    
+    @Test
+    public void isArrayGenericTest() {
+        assertTrue(ReflectionUtils.isArray(stringArray));
+    }
+    
+    @Test
+    public void isArrayGenericFalseTest() {
+        assertFalse(ReflectionUtils.isArray(stringList));
     }
     
     @Test
@@ -681,6 +697,21 @@ public class ReflectionUtilsTest {
         Field field = ReflectionUtilsTest.class.getDeclaredField("stringList");
         Type fieldType = field.getGenericType();
         assertFalse(ReflectionUtils.isArray(fieldType));
+    }
+    
+    @Test
+    public void isArrayNullTest() {
+        assertFalse(ReflectionUtils.isArray(null));
+    }
+    
+    @Test
+    public void isSetGenericTest() {
+        assertTrue(ReflectionUtils.isSet(integerSet));
+    }
+    
+    @Test
+    public void isSetGenericFalseTest() {
+        assertFalse(ReflectionUtils.isSet(stringList));
     }
     
     @Test
@@ -705,6 +736,21 @@ public class ReflectionUtilsTest {
     }
     
     @Test
+    public void isSetNullTest() {
+        assertFalse(ReflectionUtils.isSet(null));
+    }
+    
+    @Test
+    public void isCollectionGenericTest() {
+        assertTrue(ReflectionUtils.isCollection(stringList));
+    }
+    
+    @Test
+    public void isCollectionGenericFalseTest() {
+        assertFalse(ReflectionUtils.isCollection(string));
+    }
+    
+    @Test
     public void isCollectionTest() throws NoSuchFieldException, SecurityException {
         Field field = ReflectionUtilsTest.class.getDeclaredField("stringList");
         Type fieldType = field.getGenericType();
@@ -716,6 +762,21 @@ public class ReflectionUtilsTest {
         Field field = ReflectionUtilsTest.class.getDeclaredField("string");
         Type fieldType = field.getGenericType();
         assertFalse(ReflectionUtils.isCollection(fieldType));
+    }
+    
+    @Test
+    public void isCollectionNullTest() {
+        assertFalse(ReflectionUtils.isCollection(null));
+    }
+    
+    @Test
+    public void isIterableGenericTest() {
+        assertTrue(ReflectionUtils.isIterable(stringIterable));
+    }
+    
+    @Test
+    public void isIterableGenericFalseTest() {
+        assertFalse(ReflectionUtils.isIterable(string));
     }
     
     @Test
@@ -733,10 +794,20 @@ public class ReflectionUtilsTest {
     }
     
     @Test
+    public void isIterableNullTest() {
+        assertFalse(ReflectionUtils.isIterable(null));
+    }
+    
+    @Test
+    public void hasNoArgsConstructorTest() throws NoSuchFieldException, SecurityException {
+        assertTrue(ReflectionUtils.hasNoArgsContrustor(ReflectionUtilsTest.class));
+    }
+    
+    @Test
     public void hasNoArgsConstructorFalseTest() throws NoSuchFieldException, SecurityException {
         Field field = ReflectionUtilsTest.class.getDeclaredField("string");
         Type fieldType = field.getGenericType();
-        assertFalse(ReflectionUtils.hasNoArgsContrustor((Class<?>) fieldType));
+        assertFalse(ReflectionUtils.hasNoArgsContrustor(fieldType));
     }
     
     @Test

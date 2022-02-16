@@ -197,12 +197,20 @@ public class ReflectionUtils {
         return clazz == null ? false : Map.class.isAssignableFrom(clazz);
     }
     
+    public static <T> boolean isArray(T t) {
+        return isArray(t.getClass());
+    }
+    
     public static boolean isArray(Type type) {
         return isParameterized(type) ? false : isArray((Class<?>) type);
     }
     
     public static boolean isArray(Class<?> clazz) {
-        return clazz.isArray();
+        return clazz == null ? false : clazz.isArray();
+    }
+    
+    public static <T> boolean isSet(T t) {
+        return t instanceof Set;
     }
     
     public static boolean isSet(Type type) {
@@ -210,7 +218,11 @@ public class ReflectionUtils {
     }
     
     public static boolean isSet(Class<?> clazz) {
-        return Set.class.isAssignableFrom(clazz);
+        return clazz == null ? false : Set.class.isAssignableFrom(clazz);
+    }
+    
+    public static <T> boolean isCollection(T t) {
+        return t instanceof Collection;
     }
     
     public static boolean isCollection(Type type) {
@@ -218,7 +230,11 @@ public class ReflectionUtils {
     }
     
     public static boolean isCollection(Class<?> clazz) {
-        return Collection.class.isAssignableFrom(clazz);
+        return clazz == null ? false : Collection.class.isAssignableFrom(clazz);
+    }
+    
+    public static <T> boolean isIterable(T t) {
+        return t instanceof Iterable;
     }
     
     public static boolean isIterable(Type type) {
@@ -226,7 +242,11 @@ public class ReflectionUtils {
     }
     
     public static boolean isIterable(Class<?> clazz) {
-        return Iterable.class.isAssignableFrom(clazz);
+        return clazz == null ? false : Iterable.class.isAssignableFrom(clazz);
+    }
+    
+    public static boolean hasNoArgsContrustor(Type type) {
+        return hasNoArgsContrustor((Class<?>) type);
     }
 
     public static boolean hasNoArgsContrustor(Class<?> clazz) {
@@ -239,9 +259,6 @@ public class ReflectionUtils {
     }
     
     private static boolean isEqual(Class<?> class1, Class<?> class2) {
-        if (class1 == null && class2 == null) {
-            return true;
-        }
         if (class1 == null || class2 == null) {
             return false;
         }
